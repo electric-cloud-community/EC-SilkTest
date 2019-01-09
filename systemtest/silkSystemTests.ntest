@@ -1,0 +1,331 @@
+# -*-Perl-*-
+
+# silkSystemTests.ntest -
+#
+# ECSilk
+#
+# Copyright (c) 2005-2010 Electric Cloud, Inc.
+# All rights reserved
+
+use strict;
+use warnings;
+use ECTest;
+use ECSelenium;
+
+ 
+# system tests
+
+
+require "$::gTestFileDir/silk-common.ntest";
+
+$::gProjectImported = 0;
+$::gtestProjectName = 'SilkTest';
+
+my $outcome = '';
+
+########################################################################
+# importProject - imports the test project and asserts that the specified
+#                 procedures exists
+#
+# Arguments:
+#   -none
+#
+# Returns:
+#   -nothing
+#
+########################################################################
+sub importProject() {
+    assertOK($::N->import(
+             { file =>"$::gTestFileDir/silkTest.xml",
+               path  => "/projects/SilkTest",
+               force => 1
+             } ), 'import runCommandLine');
+   
+    assertOK($::N->getProcedure($::gtestProjectName, 'allSilkOptions'),
+    'allSilkOptions procedure doesn\'t exist');
+    
+    assertOK($::N->getProcedure($::gtestProjectName, 'defaultDirectory'),
+    'defaultDirectory procedure doesn\'t exist');
+    
+    assertOK($::N->getProcedure($::gtestProjectName, 'withAResultFile'),
+    'withAResultFile procedure doesn\'t exist');
+    
+    assertOK($::N->getProcedure($::gtestProjectName, 'withTestArguments'),
+    'withTestArguments procedure doesn\'t exist');  
+
+    assertOK($::N->getProcedure($::gtestProjectName, 'WithTestPlanFile'),
+    'WithTestPlanFile procedure doesn\'t exist');  
+    
+    $::gProjectImported = 1;
+}
+
+########################################################################
+# doSetup - invokes the project import method in case it hasn't been 
+#           executed
+#
+# Arguments:
+#   -none
+#
+# Returns:
+#   -nothing
+#
+########################################################################
+sub doSetup() {
+
+    if(! $::gProjectImported) {
+        importProject();
+    }
+    
+    
+}
+
+ntest "allSilkOptions", {}, sub {
+      
+      doSetup();
+      
+      # run test job
+     
+      my $xpath = $::N->runProcedure($::gtestProjectName, 
+              {procedureName => "allSilkOptions",
+              pollInterval  => '1',
+              timeout => 600,
+                   actualParameter => [
+                  
+                  ]
+      });
+          
+       
+      # make sure it finished
+      my $jobId = 0;
+      my $status = '';
+      
+      assertOK($xpath, 'runProcedure has errors');
+      if ($xpath) {
+          $jobId  = $xpath->findvalue("//jobId");
+          $status = $xpath->findvalue("//status");
+          $outcome = $xpath->findvalue("//outcome");
+  
+          assertTrue($jobId && $jobId ne "",'valid job id');
+          assertEq('completed',$status,"job $jobId complete");
+  
+          #abort if job did not finish
+          if ($status ne 'completed') {
+              assertOK($::N->abortJob($jobId, {force => 1}));
+          }
+      }
+
+      # get the job details
+      $xpath = $::N->getJobDetails($jobId);
+   
+      # get the value of the commands lines
+      my $commandLine = $xpath->findvalue("//property[propertyName='commandLine']/value");
+      my $workingDir = $xpath->findvalue("//property[propertyName='workingDir']/value");
+
+      assertEq($commandLine, 'partner -m RemoteMachine -proj C:\temp\testapp.vtp -base C:\rel30\testapp  -complog C:\testing\logtest1.txt -query query1 -q -r draw.t arg1 arg2 C:\SilkTests', 
+           'command line doesn\'t match expected output');
+           
+      assertEq($workingDir, 'C:\Program Files\Silk\SilkTest', 
+           'working directory doesn\'t match expected output');
+
+  };
+ntest "defaultDirectory", {}, sub {
+      
+      doSetup();
+      
+      # run test job
+     
+      my $xpath = $::N->runProcedure($::gtestProjectName, 
+              {procedureName => "defaultDirectory",
+              pollInterval  => '1',
+              timeout => 600,
+                   actualParameter => [
+                  
+                  ]
+      });
+          
+       
+      # make sure it finished
+      my $jobId = 0;
+      my $status = '';
+      
+      assertOK($xpath, 'runProcedure has errors');
+      if ($xpath) {
+          $jobId  = $xpath->findvalue("//jobId");
+          $status = $xpath->findvalue("//status");
+          $outcome = $xpath->findvalue("//outcome");
+  
+          assertTrue($jobId && $jobId ne "",'valid job id');
+          assertEq('completed',$status,"job $jobId complete");
+  
+          #abort if job did not finish
+          if ($status ne 'completed') {
+              assertOK($::N->abortJob($jobId, {force => 1}));
+          }
+      }
+
+      # get the job details
+      $xpath = $::N->getJobDetails($jobId);
+   
+      # get the value of the commands lines
+      my $commandLine = $xpath->findvalue("//property[propertyName='commandLine']/value");
+      my $workingDir = $xpath->findvalue("//property[propertyName='workingDir']/value");
+
+      assertEq($commandLine, 'partner -r draw.t', 
+           'command line doesn\'t match expected output');
+           
+      assertEq($workingDir, 'C:\Program Files\Silk\SilkTest', 
+           'working directory doesn\'t match expected output');
+
+  };
+  
+ntest "withAResultFile", {}, sub {
+      
+      doSetup();
+      
+      # run test job
+     
+      my $xpath = $::N->runProcedure($::gtestProjectName, 
+              {procedureName => "withAResultFile",
+              pollInterval  => '1',
+              timeout => 600,
+                   actualParameter => [
+                  
+                  ]
+      });
+          
+       
+      # make sure it finished
+      my $jobId = 0;
+      my $status = '';
+      
+      assertOK($xpath, 'runProcedure has errors');
+      if ($xpath) {
+          $jobId  = $xpath->findvalue("//jobId");
+          $status = $xpath->findvalue("//status");
+          $outcome = $xpath->findvalue("//outcome");
+  
+          assertTrue($jobId && $jobId ne "",'valid job id');
+          assertEq('completed',$status,"job $jobId complete");
+  
+          #abort if job did not finish
+          if ($status ne 'completed') {
+              assertOK($::N->abortJob($jobId, {force => 1}));
+          }
+      }
+
+      # get the job details
+      $xpath = $::N->getJobDetails($jobId);
+   
+      # get the value of the commands lines
+      my $commandLine = $xpath->findvalue("//property[propertyName='commandLine']/value");
+      my $workingDir = $xpath->findvalue("//property[propertyName='workingDir']/value");
+
+      assertEq($commandLine, 'partner -resexport -r draw.t', 
+           'command line doesn\'t match expected output');
+           
+      assertEq($workingDir, 'C:\Program Files\Silk\SilkTest', 
+           'working directory doesn\'t match expected output');
+
+  };
+ntest "withTestArguments", {}, sub {
+      
+      doSetup();
+      
+      # run test job
+     
+      my $xpath = $::N->runProcedure($::gtestProjectName, 
+              {procedureName => "withTestArguments",
+              pollInterval  => '1',
+              timeout => 600,
+                   actualParameter => [
+                  
+                  ]
+      });
+          
+       
+      # make sure it finished
+      my $jobId = 0;
+      my $status = '';
+      
+      assertOK($xpath, 'runProcedure has errors');
+      if ($xpath) {
+          $jobId  = $xpath->findvalue("//jobId");
+          $status = $xpath->findvalue("//status");
+          $outcome = $xpath->findvalue("//outcome");
+  
+          assertTrue($jobId && $jobId ne "",'valid job id');
+          assertEq('completed',$status,"job $jobId complete");
+  
+          #abort if job did not finish
+          if ($status ne 'completed') {
+              assertOK($::N->abortJob($jobId, {force => 1}));
+          }
+      }
+
+      # get the job details
+      $xpath = $::N->getJobDetails($jobId);
+   
+      # get the value of the commands lines
+      my $commandLine = $xpath->findvalue("//property[propertyName='commandLine']/value");
+      my $workingDir = $xpath->findvalue("//property[propertyName='workingDir']/value");
+
+      assertEq($commandLine, 'partner  -r draw.t arg1 arg2', 
+           'command line doesn\'t match expected output');
+           
+      assertEq($workingDir, 'C:\Program Files\Silk\SilkTest', 
+           'working directory doesn\'t match expected output');
+
+  };
+
+
+
+  ntest "WithTestPlanFile", {}, sub {
+      
+      doSetup();
+      
+      # run test job
+     
+      my $xpath = $::N->runProcedure($::gtestProjectName, 
+              {procedureName => "WithTestPlanFile",
+              pollInterval  => '1',
+              timeout => 600,
+                   actualParameter => [
+                  
+                  ]
+      });
+          
+       
+      # make sure it finished
+      my $jobId = 0;
+      my $status = '';
+      
+      assertOK($xpath, 'runProcedure has errors');
+      if ($xpath) {
+          $jobId  = $xpath->findvalue("//jobId");
+          $status = $xpath->findvalue("//status");
+          $outcome = $xpath->findvalue("//outcome");
+  
+          assertTrue($jobId && $jobId ne "",'valid job id');
+          assertEq('completed',$status,"job $jobId complete");
+  
+          #abort if job did not finish
+          if ($status ne 'completed') {
+              assertOK($::N->abortJob($jobId, {force => 1}));
+          }
+      }
+
+      # get the job details
+      $xpath = $::N->getJobDetails($jobId);
+   
+      # get the value of the commands lines
+      my $commandLine = $xpath->findvalue("//property[propertyName='commandLine']/value");
+      my $workingDir = $xpath->findvalue("//property[propertyName='workingDir']/value");
+
+      assertEq($commandLine,'partner  -r casesens.pln', 
+           'command line doesn\'t match expected output');
+           
+      assertEq($workingDir, 'C:\Program Files\Silk\SilkTest\examples', 
+           'working directory doesn\'t match expected output');
+
+  };
+

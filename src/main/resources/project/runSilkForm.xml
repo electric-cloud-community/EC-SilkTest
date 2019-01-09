@@ -1,0 +1,96 @@
+    <editor>
+		<help>/commander/pages/@PLUGIN_NAME@/@PLUGIN_KEY@_help?s=Administration&amp;ss=Plugins#runSilk</help>
+
+		 <formElement>
+            <type>entry</type>
+            <label>Working Directory</label>
+            <property>wDirectory</property>
+            <required>1</required>
+            <documentation>Provide the directory where the Silk file resides.</documentation>
+        </formElement> 
+        <formElement>
+            <type>entry</type>
+            <label>Silk File</label>
+            <property>silkFile</property>
+            <required>1</required>
+            <documentation>Provide a silk file, which can be a script, suite, testplan, or link file.</documentation>
+         </formElement>
+          <formElement>
+            <type>checkbox</type>
+            <checkedValue>1</checkedValue>
+			<uncheckedValue>0</uncheckedValue>
+  			<initiallyChecked>0</initiallyChecked>
+            <label>Arguments</label>
+            <property>chkArguments</property>
+            <required>0</required>
+            <documentation>If checked, this indicates that the Silk file has arguments.</documentation>
+        </formElement>         
+          <formElement>
+            <type>entry</type>
+            <label>Test Arguments</label>
+            <property>testArguments</property>
+            <required>0</required>
+            <documentation>Define arguments for the Silk test.</documentation>
+        </formElement>
+        <formElement>
+            <type>entry</type>
+            <label>File Directory</label>
+            <property>directory</property>
+            <required>0</required>
+            <documentation>Indicate the directory where the Silk file is located. Leave blank to use the default directory.</documentation>
+        </formElement>
+         <formElement>
+            <type>entry</type>
+            <label>Target Machine</label>
+            <property>targetMachine</property>
+            <required>0</required>
+            <documentation>Specify the target machine. The default is the current machine.</documentation>
+        </formElement>
+        <formElement>
+            <type>entry</type>
+            <label>Project</label>
+            <property>proj</property>
+            <required>0</required>
+            <documentation>Provide an optional argument specifying the project file or archived project to load when starting SilkTest.</documentation>
+        </formElement>
+        <formElement>
+            <type>entry</type>
+            <label>base</label>
+            <property>base</property>
+            <required>0</required>
+            <documentation>Indicate the directory where the project will be unpacked.</documentation>
+        </formElement>
+         <formElement>
+            <type>entry</type>
+            <label>Query</label>
+            <property>query</property>
+            <required>0</required>
+            <documentation>Provide the name of a saved query.</documentation>
+        </formElement>
+        <formElement>
+            <type>entry</type>
+            <label>Log File</label>
+            <property>compLog</property>
+            <required>0</required>
+            <documentation>Specify the file where you want SilkTest to log compilation errors. </documentation>
+        </formElement>
+             
+        <formElement>
+            <type>entry</type>
+            <label>Additional Options</label>
+            <property>additionalOptions</property>
+            <required>0</required>
+            <documentation>Provide any additional options for the Silk command.</documentation>
+        </formElement>
+            <formElement>
+            <type>checkbox</type>
+            <checkedValue>1</checkedValue>
+			<uncheckedValue>0</uncheckedValue>
+  			<initiallyChecked>0</initiallyChecked>
+            <label>Results File </label>
+            <property>resFile</property>
+            <required>0</required>
+            <documentation>If checked, this indicates that you want a .res file where the test results will be written.</documentation>
+        </formElement>  
+    </editor>
+
