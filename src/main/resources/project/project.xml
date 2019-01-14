@@ -4,6 +4,12 @@
   <project>
     <projectName>@PLUGIN_KEY@-@PLUGIN_VERSION@</projectName>
     <propertySheet>
+        <!-- Improvement for ECPTESTSILK-3 -->
+        <property>
+            <propertyName>ec_icon</propertyName>
+            <value>images/icon-plugin.svg</value>
+        </property>
+        <!-- End of improvement for ECPTESTSILK-3 -->
     <property>
         <propertyName>scripts</propertyName>
         <description></description>
@@ -23,12 +29,12 @@
         <expandable>0</expandable>
     </property>
     <property>
-    	    <propertyName>ec_visibility</propertyName>
-    	    <description></description>
-    	    <expandable>0</expandable>
-    	    <value>pickListOnly</value>
+            <propertyName>ec_visibility</propertyName>
+            <description></description>
+            <expandable>0</expandable>
+            <value>pickListOnly</value>
       </property>
-	</propertySheet>
+    </propertySheet>
    <procedure>
       <procedureName>runSilk</procedureName>
       <description>runs silk</description>
@@ -42,8 +48,8 @@
           <propertySheet>
             <property>
               <propertyName>parameters</propertyName>
-	  <propertySheet>
-				<property>
+      <propertySheet>
+                <property>
                   <propertyName>silkFile</propertyName>
                   <propertySheet>
                     <property>
@@ -71,7 +77,7 @@
                       <expandable>1</expandable>
                       <value>standard</value>
                     </property>
-					<property>
+                    <property>
                       <propertyName>checkedValue</propertyName>
                       <expandable>1</expandable>
                       <value>1</value>
@@ -97,7 +103,7 @@
                       <value>standard</value>
                     </property>
                   </propertySheet>
-                </property> 
+                </property>
                 <property>
                   <propertyName>targetMachine</propertyName>
                   <propertySheet>
@@ -108,7 +114,7 @@
                     </property>
                   </propertySheet>
                 </property>
-                                 
+
                 <property>
                   <propertyName>proj</propertyName>
                   <propertySheet>
@@ -157,7 +163,7 @@
                       <expandable>1</expandable>
                       <value>standard</value>
                     </property>
-					<property>
+                    <property>
                       <propertyName>checkedValue</propertyName>
                       <expandable>1</expandable>
                       <value>1</value>
@@ -174,7 +180,7 @@
                     </property>
                   </propertySheet>
                 </property>
-                
+
                  <property>
                   <propertyName>additionalOptions</propertyName>
                   <propertySheet>
@@ -189,27 +195,27 @@
            </property>
           </propertySheet>
         </property>
-		<property>
-			<propertyName>ec_parameterForm</propertyName>
-			<description></description>
-			<expandable>0</expandable>
-			<value></value>
-		</property>
+        <property>
+            <propertyName>ec_parameterForm</propertyName>
+            <description></description>
+            <expandable>0</expandable>
+            <value></value>
+        </property>
       </propertySheet>
-	 <formalParameter>
+     <formalParameter>
         <formalParameterName>wDirectory</formalParameterName>
         <defaultValue></defaultValue>
         <description>Provide the directory where the Silk file resides.</description>
         <required>1</required>
         <type>entry</type>
       </formalParameter>
-	 <formalParameter>
+     <formalParameter>
         <formalParameterName>silkFile</formalParameterName>
         <description>Provide a silk file, which can be a script, suite, testplan, or link file.</description>
         <required>1</required>
         <type>entry</type>
       </formalParameter>
-      
+
       <formalParameter>
         <formalParameterName>chkArguments</formalParameterName>
         <defaultValue></defaultValue>
@@ -236,7 +242,7 @@
         <required>0</required>
         <type>entry</type>
       </formalParameter>
-      
+
       <formalParameter>
         <formalParameterName>proj</formalParameterName>
         <defaultValue></defaultValue>
@@ -244,7 +250,7 @@
         <required>0</required>
         <type>entry</type>
       </formalParameter>
-    
+
      <formalParameter>
         <formalParameterName>base</formalParameterName>
         <defaultValue></defaultValue>
@@ -252,7 +258,7 @@
         <required>0</required>
         <type>entry</type>
       </formalParameter>
-      
+
       <formalParameter>
         <formalParameterName>query</formalParameterName>
         <defaultValue></defaultValue>
@@ -260,7 +266,7 @@
         <required>0</required>
         <type>entry</type>
       </formalParameter>
-      
+
        <formalParameter>
         <formalParameterName>compLog</formalParameterName>
         <defaultValue></defaultValue>
@@ -268,16 +274,16 @@
         <required>0</required>
         <type>entry</type>
       </formalParameter>
-      
-	 <formalParameter>
+
+     <formalParameter>
         <formalParameterName>additionalOptions</formalParameterName>
         <defaultValue></defaultValue>
         <description>Provide any additional options for the Silk command.</description>
         <required>0</required>
         <type>entry</type>
       </formalParameter>
-      
-      
+
+
       <formalParameter>
         <formalParameterName>resFile</formalParameterName>
         <defaultValue></defaultValue>
@@ -285,8 +291,8 @@
         <required>0</required>
         <type>checkbox</type>
       </formalParameter>
-	 
-	 <step>
+
+     <step>
         <stepName>createCommandLine</stepName>
         <alwaysRun>0</alwaysRun>
         <broadcast>0</broadcast>
